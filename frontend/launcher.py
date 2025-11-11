@@ -1,6 +1,7 @@
 import sys
 import subprocess
 from PyQt5.QtWidgets import QApplication, QPushButton, QWidget, QVBoxLayout, QLabel
+import os
 
 class MouseLauncher(QWidget):
     def __init__(self):
@@ -28,8 +29,11 @@ class MouseLauncher(QWidget):
 
     def run_gesture_mouse(self):
         if self.process is None:
-            
-            self.process = subprocess.Popen(["python", "../AI_virtual_Mouse.py"])
+            base_dir = os.path.dirname(os.path.abspath(__file__))
+            python_executable = os.path.join(base_dir, "../venv/Scripts/python.exe")
+            ai_virtual_mouse_script = os.path.join(base_dir, "../AI_virtual_Mouse.py")
+
+            self.process = subprocess.Popen([python_executable, ai_virtual_mouse_script])
             self.label.setText("Gesture Mouse is running!")
         else:
             self.label.setText("Gesture Mouse is already running!")
