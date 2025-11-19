@@ -145,10 +145,10 @@ class MouseLauncher(QWidget):
         self.launch_mode("normal_mode.py", "Normal Mode")
 
     def run_presentation_mode(self):
-        self.launch_mode("presentation_mode.py", "Presentation Mode")
+        self.launch_mode("PresentationMode.py", "Presentation Mode")
 
     def run_gaming_mode(self):
-        self.launch_mode("gaming_mode.py", "Gaming Mode")
+        self.launch_mode("gamingMode.py", "Gaming Mode")
 
     def stop_process(self):
         if self.process is not None:
