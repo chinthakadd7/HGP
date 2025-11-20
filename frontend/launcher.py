@@ -4,14 +4,16 @@ import subprocess
 from PyQt5.QtWidgets import (
     QApplication, QWidget, QVBoxLayout, QLabel, QPushButton, QFrame, QTextEdit
 )
+from PyQt5.QtGui import QMovie
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QFont, QIcon
+
 
 class InstructionWindow(QWidget):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Instructions")
-        self.setGeometry(650, 350, 450, 400)
+        self.setGeometry(650, 350, 450, 500)  # slightly taller for GIF
         self.setStyleSheet("""
             QWidget {
                 background-color: #1e1e2f;
@@ -26,11 +28,25 @@ class InstructionWindow(QWidget):
                 font-size: 13px;
             }
         """)
+
         layout = QVBoxLayout()
+
         label = QLabel("📘 Gesture Mouse Instructions")
         label.setFont(QFont("Segoe UI", 14, QFont.Bold))
         label.setAlignment(Qt.AlignCenter)
         layout.addWidget(label)
+
+# GIF display
+        gif_label = QLabel()
+        gif_path = os.path.join(os.path.dirname(__file__), "..", "assets", "test.gif")
+        gif_path = os.path.abspath(gif_path)
+        movie = QMovie(gif_path)
+        gif_label.setMovie(movie)
+        movie.start()
+        gif_label.setAlignment(Qt.AlignCenter)
+        layout.addWidget(gif_label)
+
+        # Instructions
         instructions = QTextEdit()
         instructions.setReadOnly(True)
         instructions.setText(
@@ -44,6 +60,7 @@ class InstructionWindow(QWidget):
             "⚙️ Ensure your camera and Python environment are correctly set up."
         )
         layout.addWidget(instructions)
+
         self.setLayout(layout)
 
 class MouseLauncher(QWidget):
